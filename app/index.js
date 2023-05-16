@@ -1,4 +1,4 @@
-import {handleEvents, handlefollow} from './app.js';
+import handleEvents from './app.js';
 import { printHistories } from './history/index.js';
 import {
   getPrompt, printPrompts, removePrompt, setPrompt,
@@ -6,7 +6,6 @@ import {
 
 export {
   handleEvents,
-  handlefollow,
   printHistories,
   getPrompt,
   printPrompts,
