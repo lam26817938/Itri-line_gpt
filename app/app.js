@@ -501,6 +501,7 @@ const handlefollow = async (events = []) => {
     };
     replyMessage(result)
   }
+  console.info('OK!')
 }
 }
 
