@@ -31,6 +31,7 @@ import { updateHistory, getHistory, removeHistory } from './history/index.js';
 import config from '../config/index.js';
 import { Bot, Event, Source } from './models/index.js';
 import { getPrompt, setPrompt, removePrompt } from './prompt/index.js';
+import config from '../config/index.js';
 
 /**
  * @param {Context} context
@@ -492,8 +493,48 @@ const handlefollow = async (events = []) => {
 
 
   }
-  console.info(event.type)
-  console.info(message)
+  console.info(config.APP_API_TIMEOUT)
+  console.info(config.APP_DEBUG)
+  console.info(config.APP_URL)
+  console.info(config.APP_PORT)
+  console.info(config.APP_LANG)
+  console.info(config.APP_WEBHOOK_PATH)
+  console.info(config.APP_API_TIMEOUT)
+  console.info(config.APP_MAX_GROUPS)
+  console.info(config.APP_MAX_USERS)
+  console.info(config.APP_MAX_PROMPT_MESSAGES)
+  console.info(config.APP_MAX_PROMPT_TOKENS)
+  console.info(config.APP_INIT_PROMPT)
+  console.info(config.HUMAN_NAME)
+  console.info(config.HUMAN_INIT_PROMPT)
+  console.info(config.BOT_NAME)
+  console.info(config.BOT_INIT_PROMPT)
+  console.info(config.BOT_TONE)
+  console.info(config.BOT_DEACTIVATED)
+  console.info(config.ERROR_MESSAGE_DISABLED)
+  console.info(config.VERCEL_ENV)
+  console.info(config.VERCEL_TIMEOUT)
+  console.info(config.VERCEL_PROJECT_NAME)
+  console.info(config.VERCEL_TEAM_ID)
+  console.info(config.VERCEL_ACCESS_TOKEN)
+  console.info(config.VERCEL_DEPLOY_HOOK_URL)
+  console.info(config.OPENAI_TIMEOUT)
+  console.info(config.OPENAI_API_KEY)
+  console.info(config.OPENAI_BASE_URL)
+  console.info(config.OPENAI_COMPLETION_MODEL)
+  console.info(config.OPENAI_COMPLETION_TEMPERATURE)
+  console.info(config.OPENAI_COMPLETION_MAX_TOKENS)
+  console.info(config.OPENAI_COMPLETION_FREQUENCY_PENALTY)
+  console.info(config.OPENAI_COMPLETION_PRESENCE_PENALTY)
+  console.info(config.OPENAI_IMAGE_GENERATION_SIZE)
+  console.info(config.LINE_TIMEOUT)
+  console.info(config.LINE_CHANNEL_ACCESS_TOKEN)
+  console.info(config.LINE_CHANNEL_SECRET)
+  console.info(config.SERPAPI_TIMEOUT)
+  console.info(config.SERPAPI_API_KEY)
+  console.info(config.SERPAPI_LOCATION)
+  console.info(config.SERPAPI_LANG)
+
   if(message.length>0){
     const result={
       replyToken:event.replyToken,
