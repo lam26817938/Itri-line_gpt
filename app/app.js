@@ -217,6 +217,7 @@ const handleEvents = async (events = []) => (
 );
 const handlefollow = async (events = []) => {
   for (const event of events) {
+    const message = [] 
     if (event.type === 'follow') {
       const userId=event.source.userId
 
@@ -229,9 +230,8 @@ const handlefollow = async (events = []) => {
       setPrompt(userId, prompt);
       
       updateHistory(userId, (history) => history.write('工研院', addMark(more)));
+    
       
-
-      const message = [] 
       const temp = {
         type: 'text',
         text: '歡迎加入FAST AI一站式系統的好友~現在就讓我們一起來體驗FAST AI吧!​在開始之前想先了解您的背景，請問您的工作產業類別是?',
@@ -319,7 +319,6 @@ const handlefollow = async (events = []) => {
       removeHistory(event.source.userId);
     }
   else if(event.type === 'postback'){
-    const message = []
     let temp
     if (event.postback.data.split(':')[0]=='industry'){ 
         temp = {
