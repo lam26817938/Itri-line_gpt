@@ -50,7 +50,7 @@ const handleContext = async (context) => (
   || retryHandler(context)
  // || searchHandler(context)
  // || versionHandler(context)
- // || talkHandler(context)
+  || talkHandler(context)
   || context
 );
 
