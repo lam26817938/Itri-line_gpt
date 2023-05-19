@@ -27,7 +27,7 @@ import {
   fetchUser,
   generateTranscription,
 } from '../utils/index.js';
-import { updateHistory, getHistory,removeHistory } from './history/index.js';
+import { updateHistory, getHistory, removeHistory } from './history/index.js';
 import config from '../config/index.js';
 import { Bot, Event, Source } from './models/index.js';
 import { getPrompt, setPrompt, removePrompt } from './prompt/index.js';
@@ -492,6 +492,7 @@ const handlefollow = async (events = []) => {
 
 
   }
+  console.info(message)
   if(message.length>0){
     const result={
       replyToken:event.replyToken,
