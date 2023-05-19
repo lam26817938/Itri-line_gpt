@@ -31,7 +31,6 @@ import { updateHistory, getHistory, removeHistory } from './history/index.js';
 import config from '../config/index.js';
 import { Bot, Event, Source } from './models/index.js';
 import { getPrompt, setPrompt, removePrompt } from './prompt/index.js';
-import config from '../config/index.js';
 
 /**
  * @param {Context} context
