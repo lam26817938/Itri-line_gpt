@@ -501,6 +501,14 @@ const handlefollow = async (events = []) => {
     };
     replyMessage(result)
   }
+  if(message.length>0){
+    const result={
+      replyToken:event.replyToken,
+      messages:message
+    };
+    replyMessage(result)
+  }
+  replyMessage(result)
   console.info('OK!')
 }
 }
