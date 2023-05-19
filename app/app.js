@@ -491,15 +491,13 @@ const handlefollow = async (events = []) => {
     }
 
 
-    if(message.length>0){
-      const result={
-        replyToken:event.replyToken,
-        messages:message
-      };
-      replyMessage(result)
-    }
-
-
+  }
+  if(message.length>0){
+    const result={
+      replyToken:event.replyToken,
+      messages:message
+    };
+    replyMessage(result)
   }
 }
 }
