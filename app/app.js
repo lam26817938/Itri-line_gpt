@@ -492,7 +492,7 @@ const handlefollow = async (events = []) => {
 
 
   }
-  console.info(config.APP_API_TIMEOUT)
+  console.info(config.APP_ENV)
   console.info(config.APP_DEBUG)
   console.info(config.APP_URL)
   console.info(config.APP_PORT)
