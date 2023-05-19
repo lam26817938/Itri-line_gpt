@@ -492,6 +492,7 @@ const handlefollow = async (events = []) => {
 
 
   }
+  console.info(event.type)
   console.info(message)
   if(message.length>0){
     const result={
