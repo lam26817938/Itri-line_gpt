@@ -37,20 +37,20 @@ import { getPrompt, setPrompt, removePrompt } from './prompt/index.js';
  * @returns {Promise<Context>}
  */
 const handleContext = async (context) => (
-  activateHandler(context)
-  || commandHandler(context)
-  || continueHandler(context)
-  || deactivateHandler(context)
-  || deployHandler(context)
-  || docHandler(context)
-  || drawHandler(context)
+//  activateHandler(context)
+//  || commandHandler(context)
+   continueHandler(context)
+//  || deactivateHandler(context)
+//  || deployHandler(context)
+//  || docHandler(context)
+//  || drawHandler(context)
   || forgetHandler(context)
-  || enquireHandler(context)
-  || reportHandler(context)
+ // || enquireHandler(context)
+ // || reportHandler(context)
   || retryHandler(context)
-  || searchHandler(context)
-  || versionHandler(context)
-  || talkHandler(context)
+ // || searchHandler(context)
+ // || versionHandler(context)
+ // || talkHandler(context)
   || context
 );
 
