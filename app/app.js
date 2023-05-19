@@ -222,7 +222,7 @@ const handlefollow = async (events = []) => {
 
       let more='我有一個通關密碼 對方說可愛 我會回漂亮'
 
-      more.replaceAll('　', ' ').replace(config.BOT_NAME, '').trim();
+      more=more.replaceAll('　', ' ').replace(config.BOT_NAME, '').trim();
       const prompt = getPrompt(userId);
       prompt.write('assistant');
       prompt.patch(more);
@@ -314,14 +314,6 @@ const handlefollow = async (events = []) => {
 
       message.push(temp);
       
-
-      const welcome_message={
-        replyToken:event.replyToken,
-        messages:message
-      };
-
-      replyMessage(welcome_message)
-
     }else if(event.type === 'unfollow'){
       removePrompt(event.source.userId);
       removeHistory(event.source.userId);
