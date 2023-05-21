@@ -31,6 +31,7 @@ import { updateHistory, getHistory, removeHistory } from './history/index.js';
 import config from '../config/index.js';
 import { Bot, Event, Source } from './models/index.js';
 import { getPrompt, setPrompt, removePrompt } from './prompt/index.js';
+import { cases, industry, title} from './lib.js';
 
 /**
  * @param {Context} context
@@ -40,7 +41,7 @@ const handleContext = async (context) => (
 //  activateHandler(context)
 //  || commandHandler(context)
    continueHandler(context)
-//  || deactivateHandler(context)
+  || deactivateHandler(context)
 //  || deployHandler(context)
 //  || docHandler(context)
 //  || drawHandler(context)
@@ -54,148 +55,7 @@ const handleContext = async (context) => (
   || context
 );
 
-const cases={
-  '客戶流失率預測':{
-    "text": "客戶流失率預測",
-    "actions": [
-      {
-        "type": "postback",
-        "label": "進一步了解",
-        "data": "info:客戶流失率預測"
-      }
-    ]
-  },
-  '備料預測':{
-    "text": "備料預測",
-    "actions": [
-      {
-        "type": "postback",
-        "label": "進一步了解",
-        "data": "info:備料預測"
-      }
-    ]
-  },
-  '銷量預測':{
-    "text": "銷量預測",
-    "actions": [
-      {
-        "type": "postback",
-        "label": "進一步了解",
-        "data": "info:銷量預測"
-      }
-    ]
-  },
-  '交貨量預測':{
-    "text": "交貨量預測",
-    "actions": [
-      {
-        "type": "postback",
-        "label": "進一步了解",
-        "data": "info:交貨量預測"
-      }
-    ]
-  },
-  '商品喜好度推薦系統':{
-    "text": "商品喜好度推薦系統",
-    "actions": [
-      {
-        "type": "postback",
-        "label": "進一步了解",
-        "data": "info:商品喜好度推薦系統"
-      }
-    ]
-  },
-  '訂定售價':{
-    "text": "訂定售價",
-    "actions": [
-      {
-        "type": "postback",
-        "label": "進一步了解",
-        "data": "info:訂定售價"
-      }
-    ]
-  },
-  '離職率預測':{
-    "text": "離職率預測",
-    "actions": [
-      {
-        "type": "postback",
-        "label": "進一步了解",
-        "data": "info:離職率預測"
-      }
-    ]
-  },
-  '交通熱區預測':{
-    "text": "交通熱區預測",
-    "actions": [
-      {
-        "type": "postback",
-        "label": "進一步了解",
-        "data": "info:交通熱區預測"
-      }
-    ]
-  },
-  '人潮預測':{
-    "text": "人潮預測",
-    "actions": [
-      {
-        "type": "postback",
-        "label": "進一步了解",
-        "data": "info:人潮預測"
-      }
-    ]
-  },
-  '建築物料耗損預測':{
-    "text": "建築物料耗損預測",
-    "actions": [
-      {
-        "type": "postback",
-        "label": "進一步了解",
-        "data": "info:建築物料耗損預測"
-      }
-    ]
-  },
-  '疾病風險預測':{
-    "text": "疾病風險預測",
-    "actions": [
-      {
-        "type": "postback",
-        "label": "進一步了解",
-        "data": "info:疾病風險預測"
-      }
-    ]
-  },
-    '病變影像判讀':{
-      "text": "病變影像判讀",
-      "actions": [
-        {
-          "type": "postback",
-          "label": "進一步了解",
-          "data": "info:病變影像判讀"
-        }
-      ]
-    },
-    '材料辨識':{
-      "text": "材料辨識",
-      "actions": [
-        {
-          "type": "postback",
-          "label": "進一步了解",
-          "data": "info:材料辨識"
-        }
-      ]
-    },
-    '瑕疵分類':{
-      "text": "瑕疵分類",
-      "actions": [
-        {
-          "type": "postback",
-          "label": "進一步了解",
-          "data": "info:瑕疵分類"
-        }
-      ]
-    },
-  }
+
 
 
 const handleEvents = async (events = []) => (
@@ -236,79 +96,7 @@ const handlefollow = async (events = []) => {
         type: 'text',
         text: '歡迎加入FAST AI一站式系統的好友~現在就讓我們一起來體驗FAST AI吧!​在開始之前想先了解您的背景，請問您的工作產業類別是?',
         quickReply: {
-          items: [
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '軟體科技業',
-                data: 'industry:軟體科技業',
-              }
-            },
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '製造或營造業',
-                data: 'industry:製造或營造業'
-              }
-            },
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '技術服務業',
-                data: 'industry:技術服務業'
-              }
-            },
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '醫療生技業',
-                data: 'industry:醫療生技業'
-              }
-            },
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '教育服務業',
-                data: 'industry:教育服務業'
-              }
-            },
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '藝術`娛樂休閒業',
-                data: 'industry:娛樂休閒業'
-              }
-            },
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '運輸物流業',
-                data: 'industry:教育服務業'
-              }
-            },
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '金融保險業',
-                data: 'industry:金融保險業'
-              }
-            },{
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '零售批發業',
-                data: 'industry:零售批發業'
-              }
-            }
-          ]
+          items: industry
         }
       };
 
@@ -325,55 +113,10 @@ const handlefollow = async (events = []) => {
         type: 'text',
         text: '好的! 那您的職務是?​我們即將提供您配對到最適合的方案囉!',
         quickReply: {
-          items: [
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '客戶服務',
-                data: 'title:客戶服務'
-              }
-            },
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '業務/行銷人員',
-                data: 'title:業務/行銷人員'
-              }
-            },
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '財會/行政人員',
-                data: 'title:財會/行政人員'
-              }
-            },
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '研發工程師',
-                data: 'title:研發工程師'
-              }
-            },
-            {
-              type: 'action',
-              action: {
-                type: 'postback',
-                label: '產線/物流工程師',
-                data: 'title:產線/物流工程師'
-              }
-            }
-          ]
+          items: title
         }
       };
-      const resp = new TextMessage({
-        text:'您選擇了: '+event.postback.data.split(':')[1],
-        type: 'text',
-      });
-      message.push(resp);
+
       message.push(temp);
 
     }
@@ -420,7 +163,8 @@ const handlefollow = async (events = []) => {
         {
           "type": "postback",
           "label": "顯示更多",
-          "data": "more:"+content.map(item => item.text)
+          "data": "more:"+content.map(item => item.text),
+          "text":'顯示更多'
         }
       ]
     })
@@ -452,7 +196,8 @@ const handlefollow = async (events = []) => {
         {
           "type": "postback",
           "label": "顯示更多",
-          "data": "more:"+content
+          "data": "more:"+content,
+          "text":'顯示更多'
         }
       ]
     })
@@ -492,47 +237,6 @@ const handlefollow = async (events = []) => {
 
 
   }
-  console.info(config.APP_ENV)
-  console.info(config.APP_DEBUG)
-  console.info(config.APP_URL)
-  console.info(config.APP_PORT)
-  console.info(config.APP_LANG)
-  console.info(config.APP_WEBHOOK_PATH)
-  console.info(config.APP_API_TIMEOUT)
-  console.info(config.APP_MAX_GROUPS)
-  console.info(config.APP_MAX_USERS)
-  console.info(config.APP_MAX_PROMPT_MESSAGES)
-  console.info(config.APP_MAX_PROMPT_TOKENS)
-  console.info(config.APP_INIT_PROMPT)
-  console.info(config.HUMAN_NAME)
-  console.info(config.HUMAN_INIT_PROMPT)
-  console.info(config.BOT_NAME)
-  console.info(config.BOT_INIT_PROMPT)
-  console.info(config.BOT_TONE)
-  console.info(config.BOT_DEACTIVATED)
-  console.info(config.ERROR_MESSAGE_DISABLED)
-  console.info(config.VERCEL_ENV)
-  console.info(config.VERCEL_TIMEOUT)
-  console.info(config.VERCEL_PROJECT_NAME)
-  console.info(config.VERCEL_TEAM_ID)
-  console.info(config.VERCEL_ACCESS_TOKEN)
-  console.info(config.VERCEL_DEPLOY_HOOK_URL)
-  console.info(config.OPENAI_TIMEOUT)
-  console.info(config.OPENAI_API_KEY)
-  console.info(config.OPENAI_BASE_URL)
-  console.info(config.OPENAI_COMPLETION_MODEL)
-  console.info(config.OPENAI_COMPLETION_TEMPERATURE)
-  console.info(config.OPENAI_COMPLETION_MAX_TOKENS)
-  console.info(config.OPENAI_COMPLETION_FREQUENCY_PENALTY)
-  console.info(config.OPENAI_COMPLETION_PRESENCE_PENALTY)
-  console.info(config.OPENAI_IMAGE_GENERATION_SIZE)
-  console.info(config.LINE_TIMEOUT)
-  console.info(config.LINE_CHANNEL_ACCESS_TOKEN)
-  console.info(config.LINE_CHANNEL_SECRET)
-  console.info(config.SERPAPI_TIMEOUT)
-  console.info(config.SERPAPI_API_KEY)
-  console.info(config.SERPAPI_LOCATION)
-  console.info(config.SERPAPI_LANG)
 
   if(message.length>0){
     const result={
