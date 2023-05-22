@@ -15,6 +15,12 @@ app.use(express.json({
   },
 }));
 
+app.get('/video', (req, res) => {
+  res.sendFile('test.mp4', {root: path.join(__dirname, 'public')});
+
+  res.sendStatus(200);
+});
+
 app.get('/', (req, res) => {
   res.sendFile('index.html', {root: path.join(__dirname, 'public')});
   if (config.APP_URL) {
