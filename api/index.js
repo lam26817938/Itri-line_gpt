@@ -7,7 +7,11 @@ import { fetchVersion, getVersion } from '../utils/index.js';
 
 const app = express();
 
-app.use('/', express.static('public'));
+app.use('/images', express.static('public'));
+
+app.get('/images', (req, res) => {
+  res.sendStatus(200);
+});
 
 app.use(express.json({
   verify: (req, res, buf) => {
