@@ -21,7 +21,6 @@ app.get('/video', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile('index.html', {root: path.join(__dirname, 'public')});
   if (config.APP_URL) {
     res.redirect(config.APP_URL);
     return;
