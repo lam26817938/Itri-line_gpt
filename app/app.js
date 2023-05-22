@@ -31,7 +31,7 @@ import { updateHistory, getHistory, removeHistory } from './history/index.js';
 import config from '../config/index.js';
 import { Bot, Event, Source } from './models/index.js';
 import { getPrompt, setPrompt, removePrompt } from './prompt/index.js';
-import { cases, industry, title} from './lib.js';
+import { cases, industry, title, casetest} from './lib.js';
 
 /**
  * @param {Context} context
@@ -43,7 +43,7 @@ const handleContext = async (context) => (
    continueHandler(context)
   || deactivateHandler(context)
 //  || deployHandler(context)
-//  || docHandler(context)
+  || docHandler(context)
 //  || drawHandler(context)
   || forgetHandler(context)
  // || enquireHandler(context)
@@ -81,9 +81,9 @@ const handlefollow = async (events = []) => {
     if (event.type === 'follow') {
       const userId=event.source.userId
 
-      let more='我有一個通關密碼 對方說可愛 我會回漂亮'
-
+      let more='請回覆我"請問是以下業種中，是否有包含您的職業呢?若無，請直接輸入您的產業別。"如果我回答的內容不是行業別，請回覆我"請輸入正確行業別"，如果是行業別，請給我需求應用案例建議，像是根據不動產業回覆"您好! FAST AI可以應用在不動產業務中的各種項目評估與預測。以下是一些可能的應用案例： 房價預測 房屋售出機率預測 地區開發潛力評估 租金趨勢預測 客戶需求分析"。'
       more=more.replaceAll('　', ' ').replace(config.BOT_NAME, '').trim();
+
       const prompt = getPrompt(userId);
       prompt.write('assistant');
       prompt.patch(more);
@@ -94,7 +94,7 @@ const handlefollow = async (events = []) => {
       
       const temp = {
         type: 'text',
-        text: '歡迎加入FAST AI一站式系統的好友~現在就讓我們一起來體驗FAST AI吧!​在開始之前想先了解您的背景，請問您的工作產業類別是?',
+        text: '歡迎加入FAST AI一站式系統的好友~現在就讓我們一起來體驗FAST AI吧!​在開始之前想先了解您的背景，請問您的工作產業類別是? 若底下無您的類別 請自行輸入',
         quickReply: {
           items: industry
         }
@@ -216,13 +216,17 @@ const handlefollow = async (events = []) => {
 
     
     if(event.postback.data.split(':')[0]=='info'){
+      let temtext=casetest[event.postback.data.split(':')[1]]
+      if (typeof temtext=='undefined'){
+        temtext='沒東西'
+      }
       const msg = {
         type: 'template',
         altText: 'Message with button',
         template: {
           type: 'buttons',
           title:event.postback.data.split(':')[1],
-          text:'糖尿病患者心血管疾病1年內的風險預測：',
+          text: temtext,
           actions: [
             {
               type: 'uri',
@@ -232,9 +236,42 @@ const handlefollow = async (events = []) => {
           ]
         }
       };
+      
       message.push(msg);
     }
+    if(event.postback.data.split(':')[0]=='video'){
+      let msg=''
 
+      if(event.postback.data.split(':')[1]=='Data Refine'){
+        msg = {
+          "type": "video",
+          "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
+          "previewImageUrl": "預覽圖片的連結"
+        }
+      }else if(event.postback.data.split(':')[1]=='資料標註'){
+        msg = {
+          "type": "video",
+          "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
+          "previewImageUrl": "https://itri-line-2tpdvfcga-lam26817938.vercel.app/_next/static/{亂數}/public/image.jpg"
+        }
+      }else if(event.postback.data.split(':')[1]=='時序預測'){
+        msg = {
+          "type": "video",
+          "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
+          "previewImageUrl": "預覽圖片的連結"
+        }
+      }else if(event.postback.data.split(':')[1]=='影像分類'){
+        msg = {
+          "type": "video",
+          "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
+          "previewImageUrl": "預覽圖片的連結"
+        }
+      }
+
+      
+      
+      message.push(msg);
+    }
 
   }
 
