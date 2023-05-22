@@ -257,6 +257,11 @@ class Context {
     this.pushText(err.message);
     return this;
   }
+  push(text) {
+    if (!text) return this;
+    this.messages.push(text);
+    return this;
+  }
 }
 
 export default Context;
