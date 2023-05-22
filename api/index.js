@@ -7,7 +7,7 @@ import { fetchVersion, getVersion } from '../utils/index.js';
 
 const app = express();
 
-app.use(express.static('public'))
+app.use('/images', express.static('public'));
 
 app.use(express.json({
   verify: (req, res, buf) => {
@@ -15,10 +15,6 @@ app.use(express.json({
   },
 }));
 
-app.get('/video', (req, res) => {
-  res.sendFile('test.mp4', {root: path.join(__dirname, 'public')});
-  res.sendStatus(200);
-});
 
 app.get('/', (req, res) => {
   if (config.APP_URL) {
