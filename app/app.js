@@ -56,6 +56,8 @@ const handleContext = async (context) => (
 );
 
 
+const URLPREFIX='https://itri-line-gpt.vercel.app/'
+
 
 
 const handleEvents = async (events = []) => (
@@ -251,8 +253,8 @@ const handlefollow = async (events = []) => {
       }else if(event.postback.data.split(':')[1]=='資料標註'){
         msg = {
           "type": "video",
-          "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
-          "previewImageUrl": "https://itri-line-2tpdvfcga-lam26817938.vercel.app/_next/static/{亂數}/public/image.jpg"
+          "originalContentUrl": "https://youtube.com/watch?v=Ps0YkwUwwfo",
+          "previewImageUrl": URLPREFIX+"images/function/annotation.jpg"
         }
       }else if(event.postback.data.split(':')[1]=='時序預測'){
         msg = {

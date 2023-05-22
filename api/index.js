@@ -7,6 +7,8 @@ import { fetchVersion, getVersion } from '../utils/index.js';
 
 const app = express();
 
+app.use('/images', express.static('public'));
+
 app.use(express.json({
   verify: (req, res, buf) => {
     req.rawBody = buf.toString();
