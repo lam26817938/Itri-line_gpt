@@ -253,7 +253,7 @@ const handlefollow = async (events = []) => {
       }else if(event.postback.data.split(':')[1]=='資料標註'){
         msg = {
           "type": "video",
-          "originalContentUrl": "https://youtube.com/watch?v=Ps0YkwUwwfo",
+          "originalContentUrl": URLPREFIX+"images/test.mp4",
           "previewImageUrl": URLPREFIX+"images/function/annotation.jpg"
         }
       }else if(event.postback.data.split(':')[1]=='時序預測'){
