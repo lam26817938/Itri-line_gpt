@@ -31,7 +31,7 @@ import { updateHistory, getHistory, removeHistory } from './history/index.js';
 import config from '../config/index.js';
 import { Bot, Event, Source } from './models/index.js';
 import { getPrompt, setPrompt, removePrompt } from './prompt/index.js';
-import { cases, industry, title, casetest} from './lib.js';
+import { cases, industry, title, casetest, URLPREFIX, GPTFOOD} from './lib.js';
 
 /**
  * @param {Context} context
@@ -50,13 +50,12 @@ const handleContext = async (context) => (
  // || reportHandler(context)
   || retryHandler(context)
  // || searchHandler(context)
- // || versionHandler(context)
+  || versionHandler(context)
   || talkHandler(context)
   || context
 );
 
 
-const URLPREFIX='https://itri-line-gpt.vercel.app/'
 
 
 
@@ -81,19 +80,21 @@ const handlefollow = async (events = []) => {
   for (const event of events) {
     const message = [] 
     if (event.type === 'follow') {
+
       const userId=event.source.userId
-
-      let more='請回覆我"請問是以下業種中，是否有包含您的職業呢?若無，請直接輸入您的產業別。"如果我回答的內容不是行業別，請回覆我"請輸入正確行業別"，如果是行業別，請給我需求應用案例建議，像是根據不動產業回覆"您好! FAST AI可以應用在不動產業務中的各種項目評估與預測。以下是一些可能的應用案例： 房價預測 房屋售出機率預測 地區開發潛力評估 租金趨勢預測 客戶需求分析"。'
-      more=more.replaceAll('　', ' ').replace(config.BOT_NAME, '').trim();
-
       const prompt = getPrompt(userId);
-      prompt.write('assistant');
-      prompt.patch(more);
+
+      for (var food of GPTFOOD) {
+        let more= food
+        more=more.replaceAll('　', ' ').replace(config.BOT_NAME, '').trim();
+        prompt.write('assistant', more);
+        updateHistory(userId, (history) => history.write('工研院', addMark(more)));
+      }
+
       setPrompt(userId, prompt);
-      
-      updateHistory(userId, (history) => history.write('工研院', addMark(more)));
-    
-      
+     
+
+
       const temp = {
         type: 'text',
         text: '歡迎加入FAST AI一站式系統的好友~現在就讓我們一起來體驗FAST AI吧!​在開始之前想先了解您的背景，請問您的工作產業類別是? 若底下無您的類別 請自行輸入',
@@ -125,22 +126,22 @@ const handlefollow = async (events = []) => {
     let content=[]
      if(event.postback.data.split(':')[1]=='客戶服務'|| event.postback.data.split(':')[1]=='業務/行銷人員' || event.postback.data.split(':')[1]=='財會/行政人員' || event.postback.data.split(':')[1]=='產線/物流工程師'){
 
-      content = content.concat(cases['客戶流失率預測'],cases['備料預測'],cases['銷量預測'],cases['交貨量預測'],cases['商品喜好度推薦系統'],cases['訂定售價'],cases['離職率預測']
-      ,cases['交通熱區預測'],cases['人潮預測'],cases['建築物料耗損預測'],cases['疾病風險預測'])  
+      content = content.concat(cases['AOI瑕疵分類'],cases['備料預測'],cases['銷量預測'],cases['交貨量預測'],cases['推薦系統'],cases['售價訂定'],cases['員工離職預測']
+      ,cases['載客熱點預測'],cases['景點人數預測'],cases['疾病風險預測'])  
 
     } if(event.postback.data.split(':')[1]=='研發工程師'|| event.postback.data.split(':')[1]== '產線/物流工程師'){
       
-      content = content.concat(cases['疾病風險預測'],cases['病變影像判讀'],cases['材料辨識'])
+      content = content.concat(cases['疾病風險預測'],cases['循環材料辨識'])
       
     }
      if(event.postback.data.split(':')[1]=='研發工程師'|| event.postback.data.split(':')[1]== '產線/物流工程師'){
 
-      content = content.concat(cases['客戶流失率預測'],cases['交貨量預測'],cases['商品喜好度推薦系統'],cases['訂定售價'],cases['人潮預測'],cases['建築物料耗損預測'],cases['疾病風險預測'])
+      content = content.concat(cases['交貨量預測'],cases['推薦系統'],cases['售價訂定'],cases['景點人數預測'],cases['疾病風險預測'])
       
     }
      if(event.postback.data.split(':')[1]=='研發工程師'|| event.postback.data.split(':')[1]=='產線/物流工程師'){
       
-      content = content.concat(cases['交通熱區預測'],cases['建築物料耗損預測'],cases['疾病風險預測'],cases['病變影像判讀'],cases['材料辨識'],cases['瑕疵分類'])
+      content = content.concat(cases['載客熱點預測'],cases['疾病風險預測'],cases['循環材料辨識'],cases['AOI瑕疵分類'])
       
     }
     const n=4
@@ -161,6 +162,7 @@ const handlefollow = async (events = []) => {
     }
     limitcontent.push({
       "text": " ",
+      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-15.jpg",
       "actions": [
         {
           "type": "postback",
@@ -245,28 +247,116 @@ const handlefollow = async (events = []) => {
       let msg=''
 
       if(event.postback.data.split(':')[1]=='Data Refine'){
+        const firstmsg = {
+          type: 'template',
+          altText: 'Message with button',
+          template: {
+            type: 'buttons',
+            text: '您好!​關於FAST AI資料標註功能說明如影片，謝謝!',
+            actions: [
+              {
+                type: 'postback',
+                label: '推薦方案',
+                text: '常見問答',
+                data:'QQQQ:推薦方案'
+              },
+              {
+                type: 'uri',
+                label: '申請試用',
+                uri: 'https://www.itri.org.tw/'
+              }
+            ]
+          }
+        };
+        message.push(firstmsg);
         msg = {
           "type": "video",
           "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
-          "previewImageUrl": "預覽圖片的連結"
+          "previewImageUrl": URLPREFIX+"function/dataRefine.jpg"
         }
       }else if(event.postback.data.split(':')[1]=='資料標註'){
+        const firstmsg = {
+          type: 'template',
+          altText: 'Message with button',
+          template: {
+            type: 'buttons',
+            text: '您好!​關於FAST AI資料標註功能說明如影片，謝謝!',
+            actions: [
+              {
+                type: 'postback',
+                label: '推薦方案',
+                text: '常見問答',
+                data:'QQQQ:推薦方案'
+              },
+              {
+                type: 'uri',
+                label: '申請試用',
+                uri: 'https://www.itri.org.tw/'
+              }
+            ]
+          }
+        };
+        message.push(firstmsg);
         msg = {
           "type": "video",
-          "originalContentUrl": URLPREFIX+"images/test.mp4",
-          "previewImageUrl": URLPREFIX+"images/function/annotation.jpg"
+          "originalContentUrl": URLPREFIX+"test.mp4",
+          "previewImageUrl": URLPREFIX+"function/annotation.jpg"
         }
       }else if(event.postback.data.split(':')[1]=='時序預測'){
+        const firstmsg = {
+          type: 'template',
+          altText: 'Message with button',
+          template: {
+            type: 'buttons',
+            text: '您好!​關於FAST AI資料標註功能說明如影片，謝謝!',
+            actions: [
+              {
+                type: 'postback',
+                label: '推薦方案',
+                text: '常見問答',
+                data:'QQQQ:推薦方案'
+              },
+              {
+                type: 'uri',
+                label: '申請試用',
+                uri: 'https://www.itri.org.tw/'
+              }
+            ]
+          }
+        };
+        message.push(firstmsg);
         msg = {
           "type": "video",
           "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
-          "previewImageUrl": "預覽圖片的連結"
+          "previewImageUrl": URLPREFIX+"function/timeseries.jpg"
         }
       }else if(event.postback.data.split(':')[1]=='影像分類'){
+        const firstmsg = {
+          type: 'template',
+          altText: 'Message with button',
+          template: {
+            type: 'buttons',
+            text: '您好!​關於FAST AI資料標註功能說明如影片，謝謝!',
+            actions: [
+              {
+                type: 'postback',
+                label: '推薦方案',
+                text: '常見問答',
+                data:'QQQQ:推薦方案'
+              },
+              {
+                type: 'uri',
+                label: '申請試用',
+                uri: 'https://www.itri.org.tw/'
+              }
+            ]
+          }
+        };
+        message.push(firstmsg);
         msg = {
           "type": "video",
           "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
-          "previewImageUrl": "預覽圖片的連結"
+          "previewImageUrl": URLPREFIX+"function/imageClassfication.jpg"
         }
       }
 

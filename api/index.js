@@ -9,10 +9,6 @@ const app = express();
 
 app.use('/images', express.static('public'));
 
-app.get('/images', (req, res) => {
-  res.sendStatus(200);
-});
-
 app.use(express.json({
   verify: (req, res, buf) => {
     req.rawBody = buf.toString();

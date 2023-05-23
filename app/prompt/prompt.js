@@ -42,9 +42,10 @@ class Prompt {
    * @param {string} content
    */
   write(role, content = '') {
-    if (this.messages.length >= MAX_MESSAGES || this.tokenCount >= MAX_TOKENS) {
+   /* if (this.messages.length >= MAX_MESSAGES || this.tokenCount >= MAX_TOKENS) {
       this.messages.splice(3, 1);
     }
+    */
     this.messages.push(new Message({ role, content: addMark(content) }));
     return this;
   }

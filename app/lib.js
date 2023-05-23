@@ -1,17 +1,21 @@
+const URLPREFIX='https://itri-line-gpt.vercel.app/'
+
 const cases={
-    '客戶流失率預測':{
-      "text": "客戶流失率預測",
+    '景點人數預測':{
+      "text": "景點人數預測",
+      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-2.jpg",
       "actions": [
         {
-          "type": "postback",
+          "type": "postback", 
           "label": "進一步了解",
-          "data": "info:客戶流失率預測",
-          "text":'客戶流失率預測'
+          "data": "info:景點人數預測",
+          "text":'景點人數預測'
         }
       ]
     },
     '備料預測':{
       "text": "備料預測",
+      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-15.jpg",
       "actions": [
         {
           "type": "postback",
@@ -23,6 +27,7 @@ const cases={
     },
     '銷量預測':{
       "text": "銷量預測",
+      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-18.jpg",
       "actions": [
         {
           "type": "postback",
@@ -34,6 +39,7 @@ const cases={
     },
     '交貨量預測':{
       "text": "交貨量預測",
+      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-16.jpg",
       "actions": [
         {
           "type": "postback",
@@ -43,74 +49,81 @@ const cases={
         }
       ]
     },
-    '商品喜好度推薦系統':{
-      "text": "商品喜好度推薦系統",
+    '推薦系統':{
+      "text": "推薦系統",
+      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-19.jpg",
       "actions": [
         {
           "type": "postback",
           "label": "進一步了解",
-          "data": "info:商品喜好度推薦系統",
-          "text":'商品喜好度推薦系統'
+          "data": "info:推薦系統",
+          "text":'推薦系統'
         }
       ]
     },
-    '訂定售價':{
-      "text": "訂定售價",
+    '售價訂定':{
+      "text": "售價訂定",
+      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-20.jpg",
       "actions": [
         {
           "type": "postback",
           "label": "進一步了解",
-          "data": "info:訂定售價",
-          "text":'訂定售價'
+          "data": "info:售價訂定",
+          "text":'售價訂定'
         }
       ]
     },
-    '離職率預測':{
-      "text": "離職率預測",
+    '員工離職預測':{
+      "text": "員工離職預測",
+      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-13.jpg",
       "actions": [
         {
           "type": "postback",
           "label": "進一步了解",
-          "data": "info:離職率預測",
-          "text":'離職率預測'
+          "data": "info:員工離職預測",
+          "text":'員工離職預測'
         }
       ]
     },
-    '交通熱區預測':{
-      "text": "交通熱區預測",
+    '載客熱點預測':{
+      "text": "載客熱點預測",
+      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-3.jpg",
       "actions": [
         {
           "type": "postback",
           "label": "進一步了解",
-          "data": "info:交通熱區預測",
-          "text":'交通熱區預測'
+          "data": "info:載客熱點預測",
+          "text":'載客熱點預測'
         }
       ]
     },
-    '人潮預測':{
-      "text": "人潮預測",
+    '景點人數預測':{
+      "text": "景點人數預測",
+      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-2.jpg",
       "actions": [
         {
           "type": "postback",
           "label": "進一步了解",
-          "data": "info:人潮預測",
-          "text":'人潮預測'
+          "data": "info:景點人數預測",
+          "text":'景點人數預測'
         }
       ]
     },
-    '建築物料耗損預測':{
-      "text": "建築物料耗損預測",
+    '馬拉松運動博覽會參訪動線類別預測':{
+      "text": "馬拉松運動博覽會參訪動線類別預測",
+      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-5.jpg",
       "actions": [
         {
           "type": "postback",
           "label": "進一步了解",
-          "data": "info:建築物料耗損預測",
-          "text":'建築物料耗損預測'
+          "data": "info:馬拉松運動博覽會參訪動線類別預測",
+          "text":'馬拉松運動博覽會參訪動線類別預測'
         }
       ]
     },
     '疾病風險預測':{
       "text": "疾病風險預測",
+      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-6.jpg",
       "actions": [
         {
           "type": "postback",
@@ -120,39 +133,114 @@ const cases={
         }
       ]
     },
-      '病變影像判讀':{
-        "text": "病變影像判讀",
+      '員工表現評估':{
+        "text": "員工表現評估",
+        "thumbnailImageUrl": URLPREFIX+"menu/My%20project-14.jpg",
         "actions": [
           {
             "type": "postback",
             "label": "進一步了解",
-            "data": "info:病變影像判讀",
-            "text":'病變影像判讀'
+            "data": "info:員工表現評估",
+            "text":'員工表現評估'
           }
         ]
       },
-      '材料辨識':{
-        "text": "材料辨識",
+      '房價預測':{
+        "text": "房價預測",
+        "thumbnailImageUrl": URLPREFIX+"menu/My%20project-4.jpg",
         "actions": [
           {
             "type": "postback",
             "label": "進一步了解",
-            "data": "info:材料辨識",
-            "text":'材料辨識'
+            "data": "info:房價預測",
+            "text":'房價預測'
           }
         ]
       },
-      '瑕疵分類':{
-        "text": "瑕疵分類",
+      'AOI瑕疵分類':{
+        "text": "AOI瑕疵分類",
+        "thumbnailImageUrl": URLPREFIX+"menu/My%20project-17.jpg",
         "actions": [
           {
             "type": "postback",
             "label": "進一步了解",
-            "data": "info:瑕疵分類",
-            "text":'瑕疵分類'
+            "data": "info:AOI瑕疵分類",
+            "text":'AOI瑕疵分類'
           }
         ]
       },
+      '智慧建築':{
+        "text": "智慧建築",
+        "thumbnailImageUrl": URLPREFIX+"menu/My%20project-10.jpg",
+        "actions": [
+          {
+            "type": "postback",
+            "label": "進一步了解",
+            "data": "info:智慧建築",
+            "text":'智慧建築'
+          }
+        ]
+      },
+      '糖尿病視網膜病變影像判讀':{
+        "text": "糖尿病視網膜病變影像判讀",
+        "thumbnailImageUrl": URLPREFIX+"menu/My%20project-7.jpg",
+        "actions": [
+          {
+            "type": "postback",
+            "label": "進一步了解",
+            "data": "info:糖尿病視網膜病變影像判讀",
+            "text":'糖尿病視網膜病變影像判讀'
+          }
+        ]
+      },
+      '腦腫瘤分割':{
+        "text": "腦腫瘤分割",
+        "thumbnailImageUrl": URLPREFIX+"menu/My%20project-8.jpg",
+        "actions": [
+          {
+            "type": "postback",
+            "label": "進一步了解",
+            "data": "info:腦腫瘤分割",
+            "text":'腦腫瘤分割'
+          }
+        ]
+      },
+      '農產品瑕疵檢測':{
+        "text": "農產品瑕疵檢測",
+        "thumbnailImageUrl": URLPREFIX+"menu/My%20project-11.jpg",
+        "actions": [
+          {
+            "type": "postback",
+            "label": "進一步了解",
+            "data": "info:農產品瑕疵檢測",
+            "text":'農產品瑕疵檢測'
+          }
+        ]
+      },
+      '台灣牧場乳量預測':{
+        "text": "台灣牧場乳量預測",
+        "thumbnailImageUrl": URLPREFIX+"menu/My%20project-12.jpg",
+        "actions": [
+          {
+            "type": "postback",
+            "label": "進一步了解",
+            "data": "info:台灣牧場乳量預測",
+            "text":'台灣牧場乳量預測'
+          }
+        ]
+      },
+      '循環材料辨識':{
+        "text": "循環材料辨識",
+        "thumbnailImageUrl": URLPREFIX+"menu/My%20project-9.jpg",
+        "actions": [
+          {
+            "type": "postback",
+            "label": "進一步了解",
+            "data": "info:循環材料辨識",
+            "text":'循環材料辨識'
+          }
+        ]
+      }
     }
 
    const industry=[
@@ -309,4 +397,14 @@ const cases={
       "台灣牧場乳量預測": "預測台灣不同地區牧場生產的乳量：利用乳業協會的乳牛群性能改良資料，透過時序預測模組建立AI模型，預測不同地區牧場的乳量，提供智慧牧場管理參考。"
       }
 
-export {cases, industry, title, casetest};
+      const GPTFOOD=['推動策略與執行做法：1.擴大並精進垂直領域解決方案：Fast AI應用於不同領域的問題解決及優化，包括預測分析應用、影像分析應用、最佳化分析應用，應用領域包括軟體服務業、技術服務業、教育服務業、藝術娛樂休閒業、運輸物流業、金融保險業、零售批發業、醫療生技業及製造營造業。2.少量標註資料/自動化 AI 技術：在聯合學習方面，發展個性化技術，保障個人隱私、跨企業資料合作，降低訓練準確率誤差；在自動化機器學習方面，因應產品型態自動建立最佳化AI模型，速度優於AI工程師，較國際軟體使用更少運算資源；在少量資料學習方面，發展少量標記資料學習技術，與領域別之非監督式領域調適技術，減少資料標註人力與等待收集時間。',
+
+      '3.整合共通需求建構一站式系統：打造Low-Code/No-Code系統，簡化AI專案開發流程管理，提升跨領域人才應用AI能力；提升企業營運管理與產品競爭力，協助減少生產耗能，降低碳排；推動聯合學習生態系合作、跨業資料共享創新應用。下為FAST AI模型訓練流程：1.資料收集 2.	資料標註 ：透過視覺化呈現，降低資料清理時間、提供完整標註管理工具。可做批次標註、派圖給標註者、提供審閱機制，嚴格控管標註品質，提供統計儀表板可清楚掌握標註使用者進度狀況與完成率。3.模型選擇+資料擴增+模型訓練+成效評估：透過AutoML找出最佳模型，操作簡易，點選即可完成模型訓練流程。4.模型部署：將訓練好的模型應用到實際問題，讓其他人或應用程式也能夠使用，可進行新資料的預測或分類。',
+
+      'FastAI 以 DataRefine 進行資料的準備，DataRefine數據精煉是指在數據分析和模型訓練之前，對數據進行清理、處理和轉換的過程。1.檢視過濾：類別觀察：文字型，分佈、摘要：數值型，格式查驗：空白、空字串，其他：排序、隱藏、分頁...2.資料清理：型態轉換：日期、數值、文字，編輯/增刪：名稱、位置、移除、大小寫、取代)、標記(row)... ，自訂語言：e.g. GREL 3.進階功能：欄位語意辨識 (類別型)types：date, email、address、city、gender ... (AI empowered)，異常值偵測 (數值型) 過濾、一鍵排除異常值。',
+
+      'FastAI時序預測的應用場景:1.商務應用客流量預測:以歷史客流量資料結合外部資料如COVID-19、Google Trend、天氣等資料，套用Time Series Forecasting template，預測某個時段內(如一天、一週、一個月)，某個地點(如商場、餐廳、旅館)的來客人數2.商務應用銷量預測:將商品歷史日銷售資料，透過時序預測模組(Time Series Forecasting template)，產生多達百種資料特徵，並自動化建立AI模型與成效評估，提供隔週的銷售量作為訂貨決策的參考3.傳統產業備料預測;將多種物料每個月的實際使用量資料，透過時序預測模組(Time Series Forecasting template)，產生多達百種資料特徵，並結合內部ERP資料，自動化建立AI模型與成效評估，提供下個月每種品項的備料數量的參考',
+
+      '請回覆我"請問是以下業種中，是否有包含您的職業呢?若無，請直接輸入您的產業別。"如果我回答的內容不是行業別，請回覆我"請輸入正確行業別"，如果是行業別，請給我需求應用案例建議，像是根據不動產業回覆"您好! FAST AI可以應用在不動產業務中的各種項目評估與預測。以下是一些可能的應用案例： 房價預測 房屋售出機率預測 地區開發潛力評估 租金趨勢預測 客戶需求分析"。']
+
+export {cases, industry, title, casetest, URLPREFIX, GPTFOOD};
