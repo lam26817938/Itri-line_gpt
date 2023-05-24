@@ -162,7 +162,7 @@ const handlefollow = async (events = []) => {
     }
     limitcontent.push({
       "text": " ",
-      "thumbnailImageUrl": URLPREFIX+"menu/My%20project-15.jpg",
+      "thumbnailImageUrl": URLPREFIX+"more.png",
       "actions": [
         {
           "type": "postback",
@@ -196,6 +196,7 @@ const handlefollow = async (events = []) => {
     if(content.length!=0){
     limitcontent.push({
       "text": " ",
+      "thumbnailImageUrl": URLPREFIX+"more.png",
       "actions": [
         {
           "type": "postback",
@@ -233,6 +234,12 @@ const handlefollow = async (events = []) => {
           text: temtext,
           actions: [
             {
+              type: 'postback',
+              label: '進行資料盤點',
+              text: '進行資料盤點',
+              data:'moreinfo:'+event.postback.data.split(':')[1]
+            },
+            {
               type: 'uri',
               label: '申請試用',
               uri: 'https://www.itri.org.tw/'
@@ -252,13 +259,14 @@ const handlefollow = async (events = []) => {
           altText: 'Message with button',
           template: {
             type: 'buttons',
-            text: '您好!​關於FAST AI資料標註功能說明如影片，謝謝!',
+            thumbnailImageUrl: URLPREFIX+"function/dataRefine.jpg",
+            text: '您好!​關於FAST AIData Refine功能說明如影片，謝謝!',
             actions: [
               {
                 type: 'postback',
                 label: '推薦方案',
-                text: '常見問答',
-                data:'QQQQ:推薦方案'
+                text: '推薦方案',
+                data:'info:Data Refine'
               },
               {
                 type: 'uri',
@@ -272,7 +280,7 @@ const handlefollow = async (events = []) => {
         msg = {
           "type": "video",
           "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
-          "previewImageUrl": URLPREFIX+"function/dataRefine.jpg"
+          "previewImageUrl": URLPREFIX+"video3.png"
         }
       }else if(event.postback.data.split(':')[1]=='資料標註'){
         const firstmsg = {
@@ -280,13 +288,14 @@ const handlefollow = async (events = []) => {
           altText: 'Message with button',
           template: {
             type: 'buttons',
+            thumbnailImageUrl: URLPREFIX+"function/annotation.jpg",
             text: '您好!​關於FAST AI資料標註功能說明如影片，謝謝!',
             actions: [
               {
                 type: 'postback',
                 label: '推薦方案',
-                text: '常見問答',
-                data:'QQQQ:推薦方案'
+                text: '推薦方案',
+                data:'info:資料標註'
               },
               {
                 type: 'uri',
@@ -300,7 +309,7 @@ const handlefollow = async (events = []) => {
         msg = {
           "type": "video",
           "originalContentUrl": URLPREFIX+"test.mp4",
-          "previewImageUrl": URLPREFIX+"function/annotation.jpg"
+          "previewImageUrl": URLPREFIX+"video2.png"
         }
       }else if(event.postback.data.split(':')[1]=='時序預測'){
         const firstmsg = {
@@ -308,13 +317,14 @@ const handlefollow = async (events = []) => {
           altText: 'Message with button',
           template: {
             type: 'buttons',
-            text: '您好!​關於FAST AI資料標註功能說明如影片，謝謝!',
+            thumbnailImageUrl: URLPREFIX+"function/timeSeries.jpg",
+            text: '您好!​關於FAST AI時序預測功能說明如影片，謝謝!',
             actions: [
               {
                 type: 'postback',
                 label: '推薦方案',
-                text: '常見問答',
-                data:'QQQQ:推薦方案'
+                text: '推薦方案',
+                data:'info:時序預測'
               },
               {
                 type: 'uri',
@@ -328,7 +338,7 @@ const handlefollow = async (events = []) => {
         msg = {
           "type": "video",
           "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
-          "previewImageUrl": URLPREFIX+"function/timeseries.jpg"
+          "previewImageUrl": URLPREFIX+"video4.png"
         }
       }else if(event.postback.data.split(':')[1]=='影像分類'){
         const firstmsg = {
@@ -336,13 +346,14 @@ const handlefollow = async (events = []) => {
           altText: 'Message with button',
           template: {
             type: 'buttons',
-            text: '您好!​關於FAST AI資料標註功能說明如影片，謝謝!',
+            thumbnailImageUrl: URLPREFIX+"function/imageClassfication.jpg",
+            text: '您好!​關於FAST AI影像分類功能說明如影片，謝謝!',
             actions: [
               {
                 type: 'postback',
                 label: '推薦方案',
-                text: '常見問答',
-                data:'QQQQ:推薦方案'
+                text: '推薦方案',
+                data:'info:影像分類'
               },
               {
                 type: 'uri',
@@ -356,12 +367,29 @@ const handlefollow = async (events = []) => {
         msg = {
           "type": "video",
           "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
-          "previewImageUrl": URLPREFIX+"function/imageClassfication.jpg"
+          "previewImageUrl": URLPREFIX+"video1.png"
         }
       }
 
-      
-      
+      message.push(msg);
+    }
+    if(event.postback.data.split(':')[0]=='moreinfo'){
+      const msg = {
+        type: 'template',
+        altText: 'Message with button',
+        template: {
+          type: 'buttons',
+          text: '有以下欄位即可進行FAST AI 一站式系統的智慧分析\n日期\n原物料名稱\n原物料價格\n進貨量\n生產量\n成本',
+          actions: [
+            {
+              type: 'uri',
+              label: '申請試用',
+              uri: 'https://www.itri.org.tw/'
+            }
+          ]
+        }
+      };
+
       message.push(msg);
     }
 
