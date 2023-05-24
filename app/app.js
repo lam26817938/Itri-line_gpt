@@ -1,37 +1,14 @@
 import { replyMessage } from '../utils/index.js';
-import {
-  activateHandler,
-  commandHandler,
-  continueHandler,
-  deactivateHandler,
-  deployHandler,
-  docHandler,
-  drawHandler,
-  forgetHandler,
-  enquireHandler,
-  reportHandler,
-  retryHandler,
-  searchHandler,
-  talkHandler,
-  versionHandler,
-} from './handlers/index.js';
+import {activateHandler,commandHandler,continueHandler,deactivateHandler,deployHandler,docHandler,drawHandler,forgetHandler,enquireHandler,
+  reportHandler,retryHandler,searchHandler,talkHandler,versionHandler} from './handlers/index.js';
 import Context from './context.js';
-import {
-  ImageMessage, Message, TemplateMessage, TextMessage,
-} from './messages/index.js';
-import {
-  addMark,
-  convertText,
-  fetchAudio,
-  fetchGroup,
-  fetchUser,
-  generateTranscription,
-} from '../utils/index.js';
+import {ImageMessage, Message, TemplateMessage, TextMessage} from './messages/index.js';
+import {addMark, convertText, fetchAudio,fetchGroup,fetchUser,generateTranscription,} from '../utils/index.js';
 import { updateHistory, getHistory, removeHistory } from './history/index.js';
 import config from '../config/index.js';
 import { Bot, Event, Source } from './models/index.js';
 import { getPrompt, setPrompt, removePrompt } from './prompt/index.js';
-import { cases, industry, title, casetest, URLPREFIX, GPTFOOD} from './lib.js';
+import { cases, industry, title, casetest, URLPREFIX, GPTFOOD, QQQQ, VIDEOIMG,FORMURL} from './lib.js';
 
 /**
  * @param {Context} context
@@ -40,24 +17,22 @@ import { cases, industry, title, casetest, URLPREFIX, GPTFOOD} from './lib.js';
 const handleContext = async (context) => (
 //  activateHandler(context)
 //  || commandHandler(context)
-   continueHandler(context)
-  || deactivateHandler(context)
+   continueHandler(context)      // 繼續
+  || deactivateHandler(context)  // 黑名單
 //  || deployHandler(context)
-  || docHandler(context)
+  || docHandler(context)         // DEMO影片
 //  || drawHandler(context)
-  || forgetHandler(context)
+  || forgetHandler(context)      // 忘記
  // || enquireHandler(context)
- // || reportHandler(context)
-  || retryHandler(context)
+  || reportHandler(context)      // FAST AI介紹
+  || retryHandler(context)　     // 重試
  // || searchHandler(context)
-  || versionHandler(context)
-  || talkHandler(context)
+  || versionHandler(context)     // 了解更多
+  || talkHandler(context)        // GPT主要回答
   || context
 );
 
-
-
-
+const n = 4   //多頁訊息頁數
 
 const handleEvents = async (events = []) => (
   (Promise.all(
@@ -76,9 +51,11 @@ const handleEvents = async (events = []) => (
       .map((context) => replyMessage(context)),
   ))
 );
+
 const handlefollow = async (events = []) => {
   for (const event of events) {
-    const message = [] 
+    const message = []
+    let content=[] 
     if (event.type === 'follow') {
 
       const userId=event.source.userId
@@ -92,8 +69,6 @@ const handlefollow = async (events = []) => {
       }
 
       setPrompt(userId, prompt);
-     
-
 
       const temp = {
         type: 'text',
@@ -110,6 +85,8 @@ const handlefollow = async (events = []) => {
       removeHistory(event.source.userId);
     }
   else if(event.type === 'postback'){
+    const ev0=event.postback.data.split(':')[0]
+    const ev1=event.postback.data.split(':')[1]
     let temp
     if (event.postback.data.split(':')[0]=='industry'){ 
         temp = {
@@ -123,67 +100,28 @@ const handlefollow = async (events = []) => {
       message.push(temp);
 
     }
-    let content=[]
-     if(event.postback.data.split(':')[1]=='客戶服務'|| event.postback.data.split(':')[1]=='業務/行銷人員' || event.postback.data.split(':')[1]=='財會/行政人員' || event.postback.data.split(':')[1]=='產線/物流工程師'){
+
+    if(ev1=='客戶服務'|| ev1=='業務/行銷人員' || ev1=='財會/行政人員' || ev1=='產線/物流工程師' || (ev0=='VVV'&&ev1=='時序預測')){
 
       content = content.concat(cases['AOI瑕疵分類'],cases['備料預測'],cases['銷量預測'],cases['交貨量預測'],cases['推薦系統'],cases['售價訂定'],cases['員工離職預測']
       ,cases['載客熱點預測'],cases['景點人數預測'],cases['疾病風險預測'])  
 
-    } if(event.postback.data.split(':')[1]=='研發工程師'|| event.postback.data.split(':')[1]== '產線/物流工程師'){
+    } if(ev1=='研發工程師'|| ev1== '產線/物流工程師'|| (ev0=='VVV'&&ev1=='影像分類')){
       
       content = content.concat(cases['疾病風險預測'],cases['循環材料辨識'])
       
-    }
-     if(event.postback.data.split(':')[1]=='研發工程師'|| event.postback.data.split(':')[1]== '產線/物流工程師'){
+    } if(ev1=='研發工程師'|| ev1== '產線/物流工程師'|| (ev0=='VVV'&&ev1=='Data Refine')){
 
       content = content.concat(cases['交貨量預測'],cases['推薦系統'],cases['售價訂定'],cases['景點人數預測'],cases['疾病風險預測'])
       
-    }
-     if(event.postback.data.split(':')[1]=='研發工程師'|| event.postback.data.split(':')[1]=='產線/物流工程師'){
+    } if(ev1=='研發工程師'|| ev1=='產線/物流工程師'|| (ev0=='VVV'&&ev1=='資料標註')){
       
       content = content.concat(cases['載客熱點預測'],cases['疾病風險預測'],cases['循環材料辨識'],cases['AOI瑕疵分類'])
       
     }
-    const n=4
-    if (content.length>0 && content.length<=n){
-      const conv = {
-        "type": "template",
-        "altText": "在不支援顯示樣板的地方顯示的文字",
-        "template": {
-          "type": "carousel",
-          "columns": content
-        }
-      }
-      message.push(conv);
-    }else if(content.length>n){
-      let limitcontent=[]
-      for(let i=0;i<n-1;i++){
-        limitcontent.push(content.pop())
-    }
-    limitcontent.push({
-      "text": " ",
-      "thumbnailImageUrl": URLPREFIX+"more.png",
-      "actions": [
-        {
-          "type": "postback",
-          "label": "顯示更多",
-          "data": "more:"+content.map(item => item.text),
-          "text":'顯示更多'
-        }
-      ]
-    })
-    const conv = {
-      "type": "template",
-      "altText": "在不支援顯示樣板的地方顯示的文字",
-      "template": {
-        "type": "carousel",
-        "columns": limitcontent
-      }
-    }
-    message.push(conv);
-    }
+    
 
-    if(event.postback.data.split(':')[0]=='more'){
+    if(ev0=='more'){
       let content = event.postback.data.split(':')[1].split(",")
       let limitcontent = []
       console.log(content)
@@ -220,8 +158,8 @@ const handlefollow = async (events = []) => {
     }
 
     
-    if(event.postback.data.split(':')[0]=='info'){
-      let temtext=casetest[event.postback.data.split(':')[1]]
+    if(ev0=='info'){
+      let temtext=casetest[ev1]
       if (typeof temtext=='undefined'){
         temtext='沒東西'
       }
@@ -230,19 +168,19 @@ const handlefollow = async (events = []) => {
         altText: 'Message with button',
         template: {
           type: 'buttons',
-          title:event.postback.data.split(':')[1],
+          title:ev1,
           text: temtext,
           actions: [
             {
               type: 'postback',
               label: '進行資料盤點',
               text: '進行資料盤點',
-              data:'moreinfo:'+event.postback.data.split(':')[1]
+              data:'moreinfo:'+ev1
             },
             {
               type: 'uri',
               label: '申請試用',
-              uri: 'https://www.itri.org.tw/'
+              uri: FORMURL
             }
           ]
         }
@@ -250,130 +188,46 @@ const handlefollow = async (events = []) => {
       
       message.push(msg);
     }
-    if(event.postback.data.split(':')[0]=='video'){
+    if(ev0=='video'){
+      const ans = ev1
       let msg=''
-
-      if(event.postback.data.split(':')[1]=='Data Refine'){
-        const firstmsg = {
-          type: 'template',
-          altText: 'Message with button',
-          template: {
-            type: 'buttons',
-            thumbnailImageUrl: URLPREFIX+"function/dataRefine.jpg",
-            text: '您好!​關於FAST AIData Refine功能說明如影片，謝謝!',
-            actions: [
-              {
-                type: 'postback',
-                label: '推薦方案',
-                text: '推薦方案',
-                data:'info:Data Refine'
-              },
-              {
-                type: 'uri',
-                label: '申請試用',
-                uri: 'https://www.itri.org.tw/'
-              }
-            ]
-          }
-        };
+      if(ans=='Data Refine'){
+        const firstmsg = VIDEOIMG[ans];
         message.push(firstmsg);
         msg = {
           "type": "video",
           "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
           "previewImageUrl": URLPREFIX+"video3.png"
         }
-      }else if(event.postback.data.split(':')[1]=='資料標註'){
-        const firstmsg = {
-          type: 'template',
-          altText: 'Message with button',
-          template: {
-            type: 'buttons',
-            thumbnailImageUrl: URLPREFIX+"function/annotation.jpg",
-            text: '您好!​關於FAST AI資料標註功能說明如影片，謝謝!',
-            actions: [
-              {
-                type: 'postback',
-                label: '推薦方案',
-                text: '推薦方案',
-                data:'info:資料標註'
-              },
-              {
-                type: 'uri',
-                label: '申請試用',
-                uri: 'https://www.itri.org.tw/'
-              }
-            ]
-          }
-        };
+      }else if(ans=='資料標註'){
+        const firstmsg = VIDEOIMG[ans];
         message.push(firstmsg);
         msg = {
           "type": "video",
           "originalContentUrl": URLPREFIX+"test.mp4",
           "previewImageUrl": URLPREFIX+"video2.png"
         }
-      }else if(event.postback.data.split(':')[1]=='時序預測'){
-        const firstmsg = {
-          type: 'template',
-          altText: 'Message with button',
-          template: {
-            type: 'buttons',
-            thumbnailImageUrl: URLPREFIX+"function/timeSeries.jpg",
-            text: '您好!​關於FAST AI時序預測功能說明如影片，謝謝!',
-            actions: [
-              {
-                type: 'postback',
-                label: '推薦方案',
-                text: '推薦方案',
-                data:'info:時序預測'
-              },
-              {
-                type: 'uri',
-                label: '申請試用',
-                uri: 'https://www.itri.org.tw/'
-              }
-            ]
-          }
-        };
-        message.push(firstmsg);
-        msg = {
-          "type": "video",
-          "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
-          "previewImageUrl": URLPREFIX+"video4.png"
-        }
-      }else if(event.postback.data.split(':')[1]=='影像分類'){
-        const firstmsg = {
-          type: 'template',
-          altText: 'Message with button',
-          template: {
-            type: 'buttons',
-            thumbnailImageUrl: URLPREFIX+"function/imageClassfication.jpg",
-            text: '您好!​關於FAST AI影像分類功能說明如影片，謝謝!',
-            actions: [
-              {
-                type: 'postback',
-                label: '推薦方案',
-                text: '推薦方案',
-                data:'info:影像分類'
-              },
-              {
-                type: 'uri',
-                label: '申請試用',
-                uri: 'https://www.itri.org.tw/'
-              }
-            ]
-          }
-        };
+      }else if(ans=='時序預測'){
+        const firstmsg = VIDEOIMG[ans];;
         message.push(firstmsg);
         msg = {
           "type": "video",
           "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
           "previewImageUrl": URLPREFIX+"video1.png"
         }
+      }else if(ans=='影像分類'){
+        const firstmsg = VIDEOIMG[ans];;
+        message.push(firstmsg);
+        msg = {
+          "type": "video",
+          "originalContentUrl": "https://www.youtube.com/watch?v=Ps0YkwUwwfo",
+          "previewImageUrl": URLPREFIX+"video4.png"
+        }
       }
 
       message.push(msg);
     }
-    if(event.postback.data.split(':')[0]=='moreinfo'){
+    if(ev0=='moreinfo'){
       const msg = {
         type: 'template',
         altText: 'Message with button',
@@ -384,13 +238,74 @@ const handlefollow = async (events = []) => {
             {
               type: 'uri',
               label: '申請試用',
-              uri: 'https://www.itri.org.tw/'
+              uri: FORMURL
             }
           ]
         }
       };
 
       message.push(msg);
+    }
+    if(ev0=='QQQQ'){
+      const ans = ev1
+      if(ans=='系統相關問題'){
+      const msg = QQQQ[ans]
+
+      message.push(msg);
+      }else if(ans=='硬體需求'){
+        const msg = QQQQ[ans]
+  
+        message.push(msg);
+      }else if(ans=='資料準備需求'){
+        const msg = QQQQ[ans]
+  
+        message.push(msg);
+      }else if(ans=='常見問答'){
+        const msg = QQQQ[ans]
+  
+        message.push(msg);
+      }
+      else if(ans=='功能說明'){
+        content = content.concat(cases['載客熱點預測'],cases['疾病風險預測'],cases['循環材料辨識'],cases['AOI瑕疵分類'])
+      }
+    }
+    
+    if (content.length>0 && content.length<=n){
+      const conv = {
+        "type": "template",
+        "altText": "在不支援顯示樣板的地方顯示的文字",
+        "template": {
+          "type": "carousel",
+          "columns": content
+        }
+      }
+      message.push(conv);
+    }else if(content.length>n){
+      let limitcontent=[]
+      for(let i=0;i<n-1;i++){
+        limitcontent.push(content.pop())
+    }
+    limitcontent.push({
+      "text": " ",
+      "thumbnailImageUrl": URLPREFIX+"more.png",
+      "actions": [
+        {
+          "type": "postback",
+          "label": "顯示更多",
+          "data": "more:"+content.map(item => item.text),
+          "text":'顯示更多'
+        }
+      ]
+    })
+    const conv = {
+      "type": "template",
+      "altText": "在不支援顯示樣板的地方顯示的文字",
+      "template": {
+        "type": "carousel",
+        "columns": limitcontent
+      }
+    }
+    message.push(conv);
     }
 
   }

@@ -3,6 +3,7 @@ import { fetchVersion, getVersion } from '../../utils/index.js';
 import { COMMAND_SYS_VERSION, GENERAL_COMMANDS } from '../commands/index.js';
 import Context from '../context.js';
 import { updateHistory } from '../history/index.js';
+import {FORMURL} from '../lib.js';
 
 /**
  * @param {Context} context
@@ -41,7 +42,7 @@ const exec = (context) => check(context) && (
           {
             type: 'uri',
             label: '申請試用',
-            uri: 'https://www.itri.org.tw/'
+            uri: FORMURL
           }
         ]
       }
