@@ -3,6 +3,7 @@ import { ALL_COMMANDS, COMMAND_BOT_CONTINUE } from '../commands/index.js';
 import Context from '../context.js';
 import { updateHistory } from '../history/index.js';
 import { getPrompt, setPrompt } from '../prompt/index.js';
+import { FORMURL, OTHERTITLE} from '../lib.js';
 
 /**
  * @param {Context} context
@@ -20,6 +21,7 @@ const exec = (context) => check(context) && (
     const prompt = getPrompt(context.userId);
     const { lastMessage } = prompt;
     if (lastMessage.isEnquiring) prompt.erase();
+    let finish=false
     try {
       const { text, isFinishReasonStop } = await generateCompletion({ prompt });
       prompt.patch(text);
@@ -29,8 +31,14 @@ const exec = (context) => check(context) && (
       const defaultActions = ALL_COMMANDS.filter(({ type }) => type === lastMessage.content);
       const actions = isFinishReasonStop ? defaultActions : [COMMAND_BOT_CONTINUE];
       context.pushText(text, actions);
+      finish=isFinishReasonStop
     } catch (err) {
       context.pushError(err);
+    }
+    if(prompt.TOF && finish){
+      const msg = OTHERTITLE
+      context.push(msg)
+      prompt.TOF=false
     }
     return context;
   }

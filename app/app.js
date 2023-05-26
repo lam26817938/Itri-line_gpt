@@ -32,7 +32,7 @@ const handleContext = async (context) => (
   || context
 );
 
-const n = 4   //多頁訊息頁數
+const n = 5   //多頁訊息頁數
 
 const handleEvents = async (events = []) => (
   (Promise.all(
@@ -56,9 +56,9 @@ const handlefollow = async (events = []) => {
   for (const event of events) {
     const message = []
     let content=[] 
+    const userId=event.source.userId
     if (event.type === 'follow') {
-
-      const userId=event.source.userId
+ 
       const prompt = getPrompt(userId);
 
       for (var food of GPTFOOD) {
@@ -81,14 +81,14 @@ const handlefollow = async (events = []) => {
       message.push(temp);
       
     }else if(event.type === 'unfollow'){
-      removePrompt(event.source.userId);
-      removeHistory(event.source.userId);
+      removePrompt(userId);
+      removeHistory(userId);
     }
   else if(event.type === 'postback'){
     const ev0=event.postback.data.split(':')[0]
     const ev1=event.postback.data.split(':')[1]
     let temp
-    if (event.postback.data.split(':')[0]=='industry'){ 
+    if (ev0=='industry'){ 
         temp = {
         type: 'text',
         text: '好的! 那您的職務是?​我們即將提供您配對到最適合的方案囉!',
@@ -101,36 +101,40 @@ const handlefollow = async (events = []) => {
 
     }
 
-    if(ev1=='客戶服務'|| ev1=='業務/行銷人員' || ev1=='財會/行政人員' || ev1=='產線/物流工程師' || (ev0=='VVV'&&ev1=='時序預測')){
+    if(ev1=='客戶服務'|| ev1=='業務/行銷人員' || ev1=='財會/行政人員' || ev1=='產線/物流工程師' || (ev0=='VVV'&&ev1=='時序預測')||ev1=='顯示所有方案'){
 
-      content = content.concat(cases['AOI瑕疵分類'],cases['備料預測'],cases['銷量預測'],cases['交貨量預測'],cases['推薦系統'],cases['售價訂定'],cases['員工離職預測']
-      ,cases['載客熱點預測'],cases['景點人數預測'],cases['疾病風險預測'])  
+      content = content.concat(cases['備料預測'], cases['交貨量預測'], cases['銷量預測'], cases['推薦系統'],
+       cases['售價訂定'], cases['員工離職預測'], cases['員工表現評估'], cases['景點人數預測'], cases['載客熱點預測'], cases['景點人數預測'],
+        cases['智慧交通'], cases['房價預測'], cases['智慧建築'], cases['疾病風險預測'], cases['牧場乳量預測']) 
 
-    } if(ev1=='研發工程師'|| ev1== '產線/物流工程師'|| (ev0=='VVV'&&ev1=='影像分類')){
+    } if(ev1=='研發工程師'|| ev1== '產線/物流工程師'|| (ev0=='VVV'&&ev1=='影像分類')||ev1=='顯示所有方案'){
       
-      content = content.concat(cases['疾病風險預測'],cases['循環材料辨識'])
+      content = content.concat(cases['AOI瑕疵分類'],cases['智慧交通'],cases['循環材料辨識'],cases['疾病風險預測'],
+      cases['視網膜病變影像判讀'],cases['腦腫瘤分割'], cases['農產品瑕疵檢測'])
       
-    } if(ev1=='研發工程師'|| ev1== '產線/物流工程師'|| (ev0=='VVV'&&ev1=='Data Refine')){
+    } if(ev1=='研發工程師'|| ev1== '產線/物流工程師'|| (ev0=='VVV'&&ev1=='Data Refine')||ev1=='顯示所有方案'){
 
-      content = content.concat(cases['交貨量預測'],cases['推薦系統'],cases['售價訂定'],cases['景點人數預測'],cases['疾病風險預測'])
+      content = content.concat(cases['交貨量預測'], cases['推薦系統'], cases['售價訂定'], cases['員工表現評估'], cases['載客熱點預測'],
+       cases['景點人數預測'], cases['智慧交通'], cases['房價預測'], cases['智慧建築'], cases['疾病風險預測'], cases['牧場乳量預測'])
       
-    } if(ev1=='研發工程師'|| ev1=='產線/物流工程師'|| (ev0=='VVV'&&ev1=='資料標註')){
+    } if(ev1=='研發工程師'|| ev1=='產線/物流工程師'|| (ev0=='VVV'&&ev1=='資料標註')||ev1=='顯示所有方案'){
       
-      content = content.concat(cases['載客熱點預測'],cases['疾病風險預測'],cases['循環材料辨識'],cases['AOI瑕疵分類'])
+      content = content.concat(cases['AOI瑕疵分類'], cases['智慧交通'], cases['循環材料辨識'], cases['智慧建築'], cases['疾病風險預測'],
+       cases['視網膜病變影像判讀'], cases['腦腫瘤分割'], cases['農產品瑕疵檢測'])
       
     }
     
 
-    if(ev0=='more'){
-      let content = event.postback.data.split(':')[1].split(",")
+    if(ev0=='more'){   
+      let content=ev1.split(",")
       let limitcontent = []
-      console.log(content)
 
       for(let i=0;i<n-1;i++){
         if(content.length>0){
           limitcontent.push(cases[content.pop()])
         }
     }
+
     if(content.length!=0){
     limitcontent.push({
       "text": " ",
@@ -266,11 +270,48 @@ const handlefollow = async (events = []) => {
         message.push(msg);
       }
       else if(ans=='功能說明'){
-        content = content.concat(cases['載客熱點預測'],cases['疾病風險預測'],cases['循環材料辨識'],cases['AOI瑕疵分類'])
+        const msg={
+          type: 'template',
+          altText: 'Message with button',
+          template: {
+            type: 'buttons',
+            text: '功能說明!',
+            actions: [
+              {
+                type: 'postback',
+                label: '影像分類',
+                text: '影像分類',
+                data:'VVV:影像分類'
+              },
+              {
+                type: 'postback',
+                label: '時序預測',
+                text: '時序預測',
+                data:'VVV:時序預測'
+              },
+              {
+                type: 'postback',
+                label: 'Data Refine',
+                text: 'Data Refine',
+                data:'VVV:Data Refine'
+              },
+              {
+                type: 'postback',
+                label: '資料標註',
+                text: '資料標註',
+                data:'VVV:資料標註'
+              },
+            ]
+          }
+        }
+
+        message.push(msg);
       }
     }
     
     if (content.length>0 && content.length<=n){
+      content = new Set(content)
+      content=Array.from(content)
       const conv = {
         "type": "template",
         "altText": "在不支援顯示樣板的地方顯示的文字",
@@ -281,6 +322,8 @@ const handlefollow = async (events = []) => {
       }
       message.push(conv);
     }else if(content.length>n){
+      content = new Set(content)
+      content=Array.from(content)
       let limitcontent=[]
       for(let i=0;i<n-1;i++){
         limitcontent.push(content.pop())

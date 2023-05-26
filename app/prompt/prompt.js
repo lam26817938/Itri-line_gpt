@@ -10,6 +10,7 @@ const MAX_TOKENS = config.APP_MAX_PROMPT_TOKENS;
 
 class Prompt {
   messages = [];
+  TOF=false
 
   constructor() {
     this
