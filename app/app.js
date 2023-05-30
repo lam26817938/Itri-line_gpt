@@ -84,12 +84,18 @@ const handlefollow = async (events = []) => {
       removePrompt(userId);
       removeHistory(userId);
     }
-  else if(event.type === 'postback'){
-    const ev0=event.postback.data.split(':')[0]
-    const ev1=event.postback.data.split(':')[1]
-    let temp
-    if (ev0=='industry'){ 
-        temp = {
+    else if(event.type === 'postback'){
+      const ev0=event.postback.data.split(':')[0]
+      const ev1=event.postback.data.split(':')[1]
+    
+      const prompt = getPrompt(userId);
+      const moree='好的! 那您的職務是?​我們即將提供您配對到最適合的方案囉!'
+      prompt.write('assistant', moree);
+      updateHistory(userId, (history) => history.write('工研院', addMark(moree)));
+      setPrompt(userId, prompt);
+
+      if (ev0=='industry'){ 
+       const temp = {
         type: 'text',
         text: '好的! 那您的職務是?​我們即將提供您配對到最適合的方案囉!',
         quickReply: {

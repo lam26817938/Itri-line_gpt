@@ -25,13 +25,13 @@ const check = (context) => (
 const exec = (context) => check(context) && (
   async () => {
     const prompt = getPrompt(context.userId);
-    if(prompt.messages[prompt.messages.length - 1]['content'].includes('請回覆我"請問是以下業種中，是否有包含您的職業呢?若無，請直接輸入您的產業別。')){
+    if(prompt.messages[prompt.messages.length - 1]['content'].includes('請回覆我"請問是以下業種中，是否有包含您的職業呢?若無，請直接輸入您的產業別。') || prompt.messages[prompt.messages.length - 1]['content'].includes('好的! 那您的職務是?​我們即將提供您配對到最適合的方案囉!')){
       prompt.TOF=true
     }
     let finish=false
     prompt.write(ROLE_HUMAN, `${t('__COMPLETION_DEFAULT_AI_TONE')(config.BOT_TONE)}${context.trimmedText}`).write(ROLE_AI);
     try {
-      prompt.write('assistant','若我無法回答或不知道 我會解釋說我是fast ai的小編 所以不能回答')
+      prompt.write('user','妳不要回答我超過200個字')
       const { text, isFinishReasonStop } = await generateCompletion({ prompt });
       prompt.erase()
       prompt.patch(text);
