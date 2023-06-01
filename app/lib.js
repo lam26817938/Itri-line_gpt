@@ -627,7 +627,7 @@ const cases={
           },
           {
             "thumbnailImageUrl": URLPREFIX+"function/annotation.jpg",
-            "title": 資料標註,
+            "title": "資料標註",
             "text": TODO,
             "actions": [
               {
