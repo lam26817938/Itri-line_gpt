@@ -639,7 +639,7 @@ const cases={
             ]
           },
           {
-            "thumbnailImageUrl": URLPREFIX+"function/dataRefine.jpg.jpg",
+            "thumbnailImageUrl": URLPREFIX+"function/dataRefine.jpg",
             "title": "Data Refine",
             "text": TODO,
             "actions": [
