@@ -1,6 +1,6 @@
-const URLPREFIX='https://itri-line-gpt.vercel.app/'
+const URLPREFIX='https://fast-ai-dot-aiotrob-stable.de.r.appspot.com/images/'
 const FORMURL='https://docs.google.com/forms/d/e/1FAIpQLSeKjb1EeLkiR6NUQjRv5V82GqDGCgfcVf_hhjQriNNW5hQoaA/viewform'
-
+const TODO='苡瑄救我'
 const cases={
   '智慧交通':{
     "text": "智慧交通",
@@ -393,20 +393,20 @@ const cases={
     "智慧建築": "利用建築物的歷史能耗數據和其他數據，透過時序預測和影像辨識模組建立AI模型，預測能耗趨勢，提供節能建議。",
     "疾病風險預測": "利用眼底影像和患者資料，透過時序預測和影像辨識模組建立模型，預測心血管疾病的風險。",
     "視網膜病變影像判讀": "利用眼底影像和標註資料，透過影像辨識模組建立AI模型，進行糖尿病視網膜病變偵測。",
-    "腦腫瘤分割": "腦腫瘤位置偵測與腫瘤分割：使用醫大腦 MRI 影像資料，透過影像辨識模組建立AI模型，快速偵測腫瘤位置，提升醫療工作效率。",
+    "腦腫瘤分割": "使用醫大腦 MRI 影像資料，透過影像辨識模組建立AI模型，快速偵測腫瘤位置，提升醫療工作效率。",
     "農產品瑕疵檢測": "利用已標記檸檬品質好與不好的影像資料，透過影像辨識模組建立AI模型，快速辨識檸檬品質，提升農產品檢測效率。",
     "牧場乳量預測": "利用乳牛群性能改良資料，透過時序預測模組建立AI模型，預測不同地區牧場的乳量。"
     }
 
-    const GPTFOOD=['Fast AI特色：擴大垂直領域解決方案：Fast AI應用於不同領域的問題解決及優化，包括在軟體服務業、技術服務業、教育服務業、藝術娛樂休閒業、運輸物流業、金融保險業、零售批發業、醫療生技業及製造營造業的預測分析應用、影像分析應用、最佳化分析應用。少量標註資料/自動化AI技術：在聯合學習方面，發展個性化技術，保障個人隱私、跨企業資料合作，降低訓練準確率誤差；在自動化機器學習方面，因應產品型態自動建立最佳化AI模型，較國際軟體使用更少運算資源；在少量資料學習方面，發展少量標記資料學習技術，與領域別之非監督式領域調適技術，減少資料標註的人力與收集時間。',
+    const GPTFOOD=['FAST AI特色：擴大垂直領域解決方案：FAST AI應用於不同領域的問題解決及優化，包括在軟體服務業、技術服務業、教育服務業、藝術娛樂休閒業、運輸物流業、金融保險業、零售批發業、醫療生技業及製造營造業的預測分析應用、影像分析應用、最佳化分析應用。少量標註資料/自動化AI技術：在聯合學習方面，發展個性化技術，保障個人隱私、跨企業資料合作，降低訓練準確率誤差；在自動化機器學習方面，因應產品型態自動建立最佳化AI模型，較國際軟體使用更少運算資源；在少量資料學習方面，發展少量標記資料學習技術，與領域別之非監督式領域調適技術，減少資料標註的人力與收集時間。',
 
     '整合共通需求建構一站式系統：簡化AI專案開發流程管理，提升跨領域人才應用AI能力；提升企業營運管理與產品競爭力，協助減少生產耗能，降低碳排；推動聯合學習生態系合作、跨業資料共享創新應用。下為FAST AI模型訓練流程：1.資料收集 2.資料標註：透過視覺化呈現，降低資料清理時間、提供完整標註管理工具。可做批次標註、派圖給標註者、提供審閱機制，嚴格控管標註品質，提供統計儀表板握標註使用者進度狀況與完成率。3.模型選擇+資料擴增+模型訓練+成效評估：透過AutoML找出最佳模型，點選即可完成模型訓練流程。4.模型部署：將訓練好的模型應用到實際問題，進行新資料的預測或分類。',
 
-    'FastAI以DataRefine進行資料的準備，DataRefine是指對數據進行清理、處理和轉換的過程。1.檢視過濾：類別觀察：文字型，分佈、摘要：數值型，格式查驗：空白、空字串2.資料清理：型態轉換：日期、數值、文字，編輯/增刪：名稱、位置、移除、大小寫、取代、標記3.進階功能：欄位語意辨識 (類別型)，異常值偵測 (數值型) 過濾、一鍵排除異常值。',
+    'FAST AI以DataRefine進行資料的準備，DataRefine是指對數據進行清理、處理和轉換的過程。1.檢視過濾：類別觀察：文字型，分佈、摘要：數值型，格式查驗：空白、空字串2.資料清理：型態轉換：日期、數值、文字，編輯/增刪：名稱、位置、移除、大小寫、取代、標記3.進階功能：欄位語意辨識 (類別型)，異常值偵測 (數值型) 過濾、一鍵排除異常值。',
 
-    'FastAI時序預測的應用場景:1.商務應用客流量預測:以歷史客流量資料結合外部資料，透過時序預測模組，預測某個時段內、某個地點的來客人數2.商務應用銷量預測:將商品歷史日銷售資料，透過時序預測模組，自動化建立AI模型與成效評估，提供參考的銷售量作為訂貨決策3.傳統產業備料預測;將多種物料的實際使用量資料，透過時序預測模組，結合內部ERP資料，自動化建立AI模型與成效評估，提供每種品項參考的備料數量。',
+    'FAST AI時序預測的應用場景:1.商務應用客流量預測:以歷史客流量資料結合外部資料，透過時序預測模組，預測某個時段內、某個地點的來客人數2.商務應用銷量預測:將商品歷史日銷售資料，透過時序預測模組，自動化建立AI模型與成效評估，提供參考的銷售量作為訂貨決策3.傳統產業備料預測;將多種物料的實際使用量資料，透過時序預測模組，結合內部ERP資料，自動化建立AI模型與成效評估，提供每種品項參考的備料數量。',
 
-    '請回覆我"請問是以下業種中，是否有包含您的職業呢?若無，請直接輸入您的產業別。"如果我回答的內容不是行業別，請回覆我"請輸入正確行業別"，如果是行業別，請給我需求應用案例建議，像是根據不動產業回覆"您好! FAST AI可以應用在不動產業務中的各種項目評估與預測。以下是一些可能的應用案例： 房價預測 房屋售出機率預測 地區開發潛力評估 租金趨勢預測 客戶需求分析"。如果我遇到和fast ai無關的資訊或問題時，我會回答"我是Fast AI官方對話機器人，只回答Fast AI相關訊息，請問您還有什麼相關問題想詢問嗎?"']
+    '請回覆我"請問是以下業種中，是否有包含您的職業呢？若無，請直接輸入您的產業別。"如果我回答的內容不是行業別，請回覆我"請輸入正確行業別"，如果是行業別，請給我需求應用案例建議，像是根據不動產業回覆"您好！ FAST AI可以應用在不動產業務中的各種項目評估與預測。以下是一些可能的應用案例： 房價預測 房屋售出機率預測 地區開發潛力評估 租金趨勢預測 客戶需求分析"。如果我遇到和FAST AI無關的資訊或問題時，我會回答"我是FAST AI官方對話機器人，只回答FAST AI相關訊息，請問您還有什麼相關問題想詢問嗎？"']
 
 
       const QQQQ={'常見問答':{
@@ -414,7 +414,7 @@ const cases={
         altText: 'Message with button',
         template: {
           type: 'buttons',
-          text: '您好!\n關於FAST AI常見問答如下，請點擊您想諮詢的分類，謝謝!',
+          text: '您好！\n關於FAST AI常見問答如下，請點擊您想諮詢的分類，謝謝！',
           actions: [
             {
               type: 'postback',
@@ -424,9 +424,9 @@ const cases={
             },
             {
               type: 'postback',
-              label: '功能說明',
-              text: '功能說明',
-              data:'QQQQ:功能說明'
+              label: '應用案例',
+              text: '應用案例',
+              data:'QQQQ:應用案例'
             },
           ]
         }
@@ -436,7 +436,7 @@ const cases={
         altText: 'Message with button',
         template: {
           type: 'buttons',
-          text: '您好!\n以下是系統問題清單，請點選您想要詢問的項目，謝謝。',
+          text: '您好！\n以下是系統問題清單，請點選您想要詢問的項目，謝謝。',
           actions: [
             {
               type: 'postback',
@@ -458,7 +458,7 @@ const cases={
         altText: 'Message with button',
         template: {
           type: 'buttons',
-          text: '您好! 以下是硬體環境最低需求，謝謝。\n主節點：16core  64GB  2TB * 1',
+          text: '您好！ 以下是硬體環境最低需求，謝謝。\n主節點：16core  64GB  2TB * 1\n'+TODO,
           actions: [
             {
               type: 'uri',
@@ -472,7 +472,7 @@ const cases={
         altText: 'Message with button',
         template: {
           type: 'buttons',
-          text: '以下是資料準備需求的內容，謝謝。\n時序預測資料類別(category)數：100類以內資料頻率：日、月、年都可',
+          text: '以下是資料準備需求的內容，謝謝。\n時序預測資料類別(category)數：100類以內資料頻率：日、月、年都可\n'+TODO,
           actions: [
             {
               type: 'uri',
@@ -490,7 +490,7 @@ const cases={
       template: {
         type: 'buttons',
         thumbnailImageUrl: URLPREFIX+"function/annotation.jpg",
-        text: '您好!​關於FAST AI 資料標註功能說明如影片，謝謝!',
+        text: '您好！​關於FAST AI 資料標註功能說明如影片，謝謝！',
         actions: [
           {
             type: 'postback',
@@ -511,7 +511,7 @@ const cases={
       template: {
         type: 'buttons',
         thumbnailImageUrl: URLPREFIX+"function/dataRefine.jpg",
-        text: '您好!​關於FAST AI Data Refine功能說明如影片，謝謝!',
+        text: '您好！​關於FAST AI Data Refine功能說明如影片，謝謝！',
         actions: [
           {
             type: 'postback',
@@ -532,7 +532,7 @@ const cases={
       template: {
         type: 'buttons',
         thumbnailImageUrl: URLPREFIX+"function/timeSeries.jpg",
-        text: '您好!​關於FAST AI 時序預測功能說明如影片，謝謝!',
+        text: '您好！​關於FAST AI 時序預測功能說明如影片，謝謝！',
         actions: [
           {
             type: 'postback',
@@ -553,7 +553,7 @@ const cases={
       template: {
         type: 'buttons',
         thumbnailImageUrl: URLPREFIX+"function/imageClassfication.jpg",
-        text: '您好!​關於FAST AI 影像分類功能說明如影片，謝謝!',
+        text: '您好！​關於FAST AI 影像分類功能說明如影片，謝謝！',
         actions: [
           {
             type: 'postback',
@@ -580,9 +580,9 @@ const cases={
         actions: [
           {
             type: 'postback',
-            label: '功能說明',
-            text: '功能說明',
-            data:'QQQQ:功能說明'
+            label: '應用案例',
+            text: '應用案例',
+            data:'QQQQ:應用案例'
           },
           {
             type: 'uri',
@@ -593,4 +593,66 @@ const cases={
       }
     };
 
-export {cases, industry, title, casetest, URLPREFIX, GPTFOOD, QQQQ, VIDEOIMG, FORMURL, OTHERTITLE};
+    const allbigfunc={
+      type: 'template',
+      altText: 'Message with button',
+      template: {
+        type: 'carousel',
+        "columns": [
+          {
+            "thumbnailImageUrl": URLPREFIX+"function/imageClassfication.jpg",
+            "title": "影像分類",
+            "text": TODO,
+            "actions": [
+              {
+                "type": 'postback',
+                "label": '影像分類',
+                "text": '影像分類',
+                "data":'VVV:影像分類'
+              }
+            ]
+          },
+          {
+            "thumbnailImageUrl": URLPREFIX+"function/timeSeries.jpg",
+            "title": "時序預測",
+            "text": TODO,
+            "actions": [
+              {
+                "type": 'postback',
+                "label": '時序預測',
+                "text": '時序預測',
+                "data":'VVV:時序預測'
+              }
+            ]
+          },
+          {
+            "thumbnailImageUrl": URLPREFIX+"function/annotation.jpg",
+            "title": TODO,
+            "text": "Description of Video 1",
+            "actions": [
+              {
+                "type": 'postback',
+                "label": '資料標註',
+                "text": '資料標註',
+                "data":'VVV:資料標註'
+              }
+            ]
+          },
+          {
+            "thumbnailImageUrl": URLPREFIX+"function/dataRefine.jpg.jpg",
+            "title": TODO,
+            "text": "Description of Video 1",
+            "actions": [
+              {
+                "type": 'postback',
+                "label": 'Data Refine',
+                "text": 'Data Refine',
+                "data":'VVV:Data Refine'
+              }
+            ]
+          },
+        ]
+      }
+    }
+
+export {cases, industry, title, casetest, URLPREFIX, GPTFOOD, QQQQ, VIDEOIMG, FORMURL, OTHERTITLE, allbigfunc, TODO};

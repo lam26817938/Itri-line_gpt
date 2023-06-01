@@ -45,7 +45,7 @@ const exec = (context) => check(context) && (
               type: 'postback',
               label: '顯示所有方案',
               text: '顯示所有方案',
-              data:'info:顯示所有方案'
+              data:'intro:顯示所有方案'
             },
             {
               type: 'postback',

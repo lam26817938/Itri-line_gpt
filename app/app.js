@@ -8,7 +8,7 @@ import { updateHistory, getHistory, removeHistory } from './history/index.js';
 import config from '../config/index.js';
 import { Bot, Event, Source } from './models/index.js';
 import { getPrompt, setPrompt, removePrompt } from './prompt/index.js';
-import { cases, industry, title, casetest, URLPREFIX, GPTFOOD, QQQQ, VIDEOIMG,FORMURL} from './lib.js';
+import { cases, industry, title, casetest, URLPREFIX, GPTFOOD, QQQQ, VIDEOIMG,FORMURL, allbigfunc, TODO} from './lib.js';
 
 /**
  * @param {Context} context
@@ -72,7 +72,7 @@ const handlefollow = async (events = []) => {
 
       const temp = {
         type: 'text',
-        text: '歡迎加入FAST AI一站式系統的好友~現在就讓我們一起來體驗FAST AI吧!​在開始之前想先了解您的背景，請問您的工作產業類別是? 若底下無您的類別 請自行輸入',
+        text: '歡迎加入FAST AI一站式系統的好友～現在就讓我們一起來體驗FAST AI吧！​在開始之前想先了解您的背景，請問您的工作產業類別是？ 若底下無您的類別 請自行輸入',
         quickReply: {
           items: industry
         }
@@ -87,17 +87,16 @@ const handlefollow = async (events = []) => {
     else if(event.type === 'postback'){
       const ev0=event.postback.data.split(':')[0]
       const ev1=event.postback.data.split(':')[1]
-    
+
+      if (ev0=='industry'){ 
       const prompt = getPrompt(userId);
-      const moree='好的! 那您的職務是?​我們即將提供您配對到最適合的方案囉!'
+      const moree='好的！ 那您的職務是？​我們即將提供您配對到最適合的方案囉！'
       prompt.write('assistant', moree);
       updateHistory(userId, (history) => history.write('工研院', addMark(moree)));
       setPrompt(userId, prompt);
-
-      if (ev0=='industry'){ 
        const temp = {
         type: 'text',
-        text: '好的! 那您的職務是?​我們即將提供您配對到最適合的方案囉!',
+        text: '好的！ 那您的職務是?​我們即將提供您配對到最適合的方案囉！',
         quickReply: {
           items: title
         }
@@ -198,6 +197,7 @@ const handlefollow = async (events = []) => {
       
       message.push(msg);
     }
+    /*
     if(ev0=='video'){
       const ans = ev1
       let msg=''
@@ -237,13 +237,14 @@ const handlefollow = async (events = []) => {
 
       message.push(msg);
     }
+    */
     if(ev0=='moreinfo'){
       const msg = {
         type: 'template',
         altText: 'Message with button',
         template: {
           type: 'buttons',
-          text: '有以下欄位即可進行FAST AI 一站式系統的智慧分析\n日期\n原物料名稱\n原物料價格\n進貨量\n生產量\n成本',
+          text: '有以下欄位即可進行FAST AI 一站式系統的智慧分析\n日期\n原物料名稱\n原物料價格\n進貨量\n生產量\n成本\n'+TODO,
           actions: [
             {
               type: 'uri',
@@ -258,66 +259,25 @@ const handlefollow = async (events = []) => {
     }
     if(ev0=='QQQQ'){
       const ans = ev1
+      let msg=''
       if(ans=='系統相關問題'){
-      const msg = QQQQ[ans]
-
-      message.push(msg);
+        msg = QQQQ[ans]
       }else if(ans=='硬體需求'){
-        const msg = QQQQ[ans]
-  
-        message.push(msg);
+        msg = QQQQ[ans]
       }else if(ans=='資料準備需求'){
-        const msg = QQQQ[ans]
-  
-        message.push(msg);
+        msg = QQQQ[ans]
       }else if(ans=='常見問答'){
-        const msg = QQQQ[ans]
-  
-        message.push(msg);
+        msg = QQQQ[ans]
+      }else if(ans=='應用案例'){
+        msg = allbigfunc
       }
-      else if(ans=='功能說明'){
-        const msg={
-          type: 'template',
-          altText: 'Message with button',
-          template: {
-            type: 'buttons',
-            text: '功能說明!',
-            actions: [
-              {
-                type: 'postback',
-                label: '影像分類',
-                text: '影像分類',
-                data:'VVV:影像分類'
-              },
-              {
-                type: 'postback',
-                label: '時序預測',
-                text: '時序預測',
-                data:'VVV:時序預測'
-              },
-              {
-                type: 'postback',
-                label: 'Data Refine',
-                text: 'Data Refine',
-                data:'VVV:Data Refine'
-              },
-              {
-                type: 'postback',
-                label: '資料標註',
-                text: '資料標註',
-                data:'VVV:資料標註'
-              },
-            ]
-          }
-        }
-
-        message.push(msg);
-      }
+      message.push(msg);
     }
     
     if (content.length>0 && content.length<=n){
       content = new Set(content)
       content=Array.from(content)
+      content.sort(() => Math.random() - 0.5);
       const conv = {
         "type": "template",
         "altText": "在不支援顯示樣板的地方顯示的文字",
@@ -330,6 +290,7 @@ const handlefollow = async (events = []) => {
     }else if(content.length>n){
       content = new Set(content)
       content=Array.from(content)
+      content.sort(() => Math.random() - 0.5);
       let limitcontent=[]
       for(let i=0;i<n-1;i++){
         limitcontent.push(content.pop())

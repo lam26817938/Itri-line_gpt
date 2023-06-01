@@ -1,6 +1,7 @@
 import { COMMAND_SYS_DOC, GENERAL_COMMANDS } from '../commands/index.js';
 import Context from '../context.js';
 import { updateHistory } from '../history/index.js';
+import { cases, industry, title, casetest, URLPREFIX, GPTFOOD, QQQQ, VIDEOIMG,FORMURL, TODO} from '../lib.js';
 
 /**
  * @param {Context} context
@@ -18,40 +19,86 @@ const exec = (context) => check(context) && (
     context.pushText('https://memochou1993.github.io/gpt-ai-assistant-docs/', GENERAL_COMMANDS);
     */
     const msg = {
-      type: 'template',
-      altText: 'Message with button',
-      template: {
-        type: 'buttons',
-        title: 'Demo影片觀看',
-        text: 'FAST AI目前有四種功能提供DEMO觀看，請直接點擊您想要觀看的功能。',
-        actions: [
+      "type": "template",
+      "altText": "Video Carousel",
+      "template": {
+        "type": "carousel",
+        "columns": [
           {
-            type: 'postback',
-            label: 'Data Refine',
-            text: 'Data Refine',
-            data:'video:Data Refine'
+            "thumbnailImageUrl": URLPREFIX+"video4.png",
+            "title": "影像分類",
+            "text": TODO,
+            "actions": [
+              {
+                "type": 'postback',
+                "label": '推薦方案',
+                "text": '推薦方案',
+                "data":'VVV:影像分類'
+              },
+              {
+                "type": "uri",
+                "label": "影片觀看",
+                "uri": URLPREFIX+"test.mp4"
+              }
+            ]
           },
           {
-            type: 'postback',
-            label: '資料標註',
-            text: '資料標註',
-            data:'video:資料標註'
+            "thumbnailImageUrl": URLPREFIX+"video1.png",
+            "title": "時序預測",
+            "text": TODO,
+            "actions": [
+              {
+                "type": 'postback',
+                "label": '推薦方案',
+                "text": '推薦方案',
+                "data":'VVV:時序預測'
+              },
+              {
+                "type": "uri",
+                "label": "影片觀看",
+                "uri": "https://example.com/video2.mp4"
+              }
+            ]
           },
           {
-            type: 'postback',
-            label: '時序預測',
-            text: '時序預測',
-            data:'video:時序預測'
+            "thumbnailImageUrl": URLPREFIX+"video2.png",
+            "title": "資料標註",
+            "text": TODO,
+            "actions": [
+              {
+                "type": 'postback',
+                "label": '推薦方案',
+                "text": '推薦方案',
+                "data":'VVV:資料標註'
+              },
+              {
+                "type": "uri",
+                "label": "影片觀看",
+                "uri": "https://example.com/video2.mp4"
+              }
+            ]
           },
           {
-            type: 'postback',
-            label: '影像分類',
-            text: '影像分類',
-            data:'video:影像分類'
-          },
+            "thumbnailImageUrl": URLPREFIX+"video3.png",
+            "title": "Data Refine",
+            "text": TODO,
+            "actions": [
+              {
+                "type": 'postback',
+                "label": '推薦方案',
+                "text": '推薦方案',
+                "data":'VVV:Data Refine'
+              },
+              {
+                "type": "uri",
+                "label": "影片觀看",
+                "uri": "https://example.com/video2.mp4"
+              }
+            ]
+          }
         ]
       }
-    };
+    }
     context.push(msg);
     
     return context;
