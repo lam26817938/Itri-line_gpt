@@ -627,8 +627,8 @@ const cases={
           },
           {
             "thumbnailImageUrl": URLPREFIX+"function/annotation.jpg",
-            "title": TODO,
-            "text": "Description of Video 1",
+            "title": 資料標註,
+            "text": TODO,
             "actions": [
               {
                 "type": 'postback',
@@ -640,8 +640,8 @@ const cases={
           },
           {
             "thumbnailImageUrl": URLPREFIX+"function/dataRefine.jpg.jpg",
-            "title": TODO,
-            "text": "Description of Video 1",
+            "title": "Data Refine",
+            "text": TODO,
             "actions": [
               {
                 "type": 'postback',
